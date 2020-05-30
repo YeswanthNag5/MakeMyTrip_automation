@@ -11,8 +11,8 @@
             <parameter name="platformname" value="Android"/>
             <parameter name="platformversion" value="7.0"/>
 
-            <parameter name="uname" value="warriorsHackathon123@gmail.com"/>
-            <parameter name="password" value="warriors@123"/>
+            <parameter name="uname" value="warriorsHackathon124@gmail.com"/>
+            <parameter name="password" value="yeswanth@123"/>
         </parameters>
 
         <classes>

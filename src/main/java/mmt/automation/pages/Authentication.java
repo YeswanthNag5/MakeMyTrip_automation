@@ -28,8 +28,9 @@ public class Authentication {
      */
     public void signIn(String userName, String password) throws Exception {
         DriverSetup.logMessage("Signing in with: " + userName + " " + password);
-
-        AndroidGestures.tap(driver, "clearUser");
+        if (AndroidGestures.isElementVisible(driver, "clearUser")) {
+            AndroidGestures.tap(driver, "clearUser");
+        }
         AndroidGestures.setEditValue(driver, "username", userName);
         AndroidGestures.tap(driver, "continue");
         AndroidGestures.tap(driver, "viapassword");
