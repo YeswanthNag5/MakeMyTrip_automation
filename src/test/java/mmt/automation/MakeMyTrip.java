@@ -4,6 +4,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import mmt.automation.common.DriverSetup;
 import mmt.automation.pages.Authentication;
+import mmt.automation.pages.LandingScreen;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -12,6 +13,7 @@ import org.testng.annotations.Test;
 public class MakeMyTrip extends DriverSetup {
     AndroidDriver<MobileElement> testdriver;
     Authentication authentication;
+    LandingScreen landingScreen;
 
 
     /**
@@ -26,11 +28,17 @@ public class MakeMyTrip extends DriverSetup {
     public void setTestdriver(String uname, String password) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         authentication = new Authentication(testdriver);
-        authentication.signIn(uname,password);
+       authentication.signIn(uname,password);
     }
 
     @Test
-    public void test(){
+    public void test()throws Exception{
+        this.testdriver = getcurrentAndroidThreadDriver();
+      landingScreen = new LandingScreen(testdriver);
+      landingScreen.SelectHotel();
+
+
+
         System.out.println("test");
     }
 

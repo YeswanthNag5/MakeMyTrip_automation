@@ -1,6 +1,7 @@
 package mmt.automation.common;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -100,6 +101,25 @@ public class AndroidGestures {
     }
 
     /**
+     * GetText of the MobileElement by any kind of locator
+     *
+     * @param driver
+     * @param locator
+     * @throws Exception
+     */
+    public static String getText(AppiumDriver<MobileElement> driver, String locator) throws Exception {
+        By thisBy = null;
+
+        try {
+            thisBy = GetUIElements.getProperties(locator);
+            return driver.findElement(thisBy).getText();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    /**
      * check element is visible in the screen
      *
      * @param driver
@@ -139,6 +159,13 @@ public class AndroidGestures {
         }
     }
 
+
+    public static void horizontalScroll(AppiumDriver<MobileElement> driver)
+    {
+        MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"com.makemytrip:id/rv_popular_cities\")).setAsHorizontalList().scrollIntoView("
+                        + "new UiSelector().textContains(\"Bengaluru\"))"));
+    }
     /**
      * Taps on the WebElement based on locator and any attributes value.
      *
@@ -203,11 +230,12 @@ public class AndroidGestures {
 
     /**
      * @param driver
-     * @param thisEle
+     * @param locator
      * @param thisSwipe
      * @throws Exception
      */
-    public static void elementSwipe(AppiumDriver<MobileElement> driver, MobileElement thisEle, swipeDirection thisSwipe) throws Exception {
+    public static void elementSwipe(AppiumDriver<MobileElement> driver, String locator, swipeDirection thisSwipe) throws Exception {
+        MobileElement thisEle = driver.findElement(GetUIElements.getProperties(locator));
         Dimension size = thisEle.getSize();
         int leftX = (int) (size.width * 0.10);
         int rightX = (int) (size.width * 0.90);
