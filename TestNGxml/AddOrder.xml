@@ -12,6 +12,8 @@
             <parameter name="platformversion" value="8.1"/>
             <parameter name="uname" value="warriorsHackathon124@gmail.com"/>
             <parameter name="password" value="yeswanth@123"/>
+            <parameter name="adultCount" value="2"/>
+            <parameter name="childCount" value="2"/>
         </parameters>
 
         <classes>
