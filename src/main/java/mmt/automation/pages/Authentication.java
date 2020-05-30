@@ -29,6 +29,11 @@ public class Authentication {
      */
     public void signIn(String userName, String password) throws Exception {
         DriverSetup.logMessage("Signing in with: " + userName + " " + password);
+        if(AndroidGestures.isElementVisible(driver,"cancel"))
+        {
+            AndroidGestures.tap(driver,"cancel");
+            AndroidGestures.tap(driver,"skip");
+        }
         Helper.waitTillInvisible(driver, By.id("drawer"), 60);
         AndroidGestures.tap(driver, "drawer");
         AndroidGestures.tap(driver,"Login");

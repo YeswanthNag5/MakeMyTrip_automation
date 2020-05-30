@@ -32,7 +32,8 @@ public class AndroidGestures {
      * @param thisDirection
      * @throws Exception
      */
-    public static void scrollIntoView(AppiumDriver<MobileElement> driver, String locator, String value, int limit, swipeDirection thisDirection) throws Exception {
+    public static void scrollIntoView(AppiumDriver<MobileElement> driver, String locator, String value, int limit,
+                                      swipeDirection thisDirection) throws Exception {
 
         By thisBy = null;
         int i = 0;
@@ -63,7 +64,8 @@ public class AndroidGestures {
      * @param value
      * @throws Exception
      */
-    public static void scrollFindToTap(AppiumDriver<MobileElement> driver, String locator, String value) throws Exception {
+    public static void scrollFindToTap(AppiumDriver<MobileElement> driver, String locator, String value) throws
+                                                                                                         Exception {
         try {
             scrollIntoView(driver, locator, value, 10, swipeDirection.UP);
             if (value != null && value != "") {
@@ -89,12 +91,36 @@ public class AndroidGestures {
 
         try {
             thisBy = GetUIElements.getProperties(locator);
-            new WebDriverWait(driver, defaultTimeout, sleepinMillis).until(ExpectedConditions.elementToBeClickable(thisBy));
+            new WebDriverWait(driver, defaultTimeout, sleepinMillis).until(
+                    ExpectedConditions.elementToBeClickable(thisBy));
             new TouchAction<>(driver).tap(ElementOption.element(driver.findElement(thisBy))).release().perform();
         } catch (Exception e) {
             throw new Exception("[ERROR] Unable to Tap on " + locator);
         }
     }
+
+    /**
+     * check element is visible in the screen
+     *
+     * @param driver
+     * @param locator
+     * @throws Exception
+     */
+    public static boolean isElementVisible(AppiumDriver<MobileElement> driver, String locator) throws Exception {
+        By thisBy = null;
+        boolean isElementVisible = false;
+
+        try {
+            thisBy = GetUIElements.getProperties(locator);
+            isElementVisible = driver.findElement(thisBy).isDisplayed();
+            return isElementVisible;
+        } catch (
+                RuntimeException re) {
+            return false;
+        }
+
+    }
+
 
     /**
      * Taps on the WebElement
@@ -105,7 +131,8 @@ public class AndroidGestures {
      */
     public static void tap(AppiumDriver<MobileElement> driver, MobileElement element) throws Exception {
         try {
-            new WebDriverWait(driver, defaultTimeout, sleepinMillis).until(ExpectedConditions.elementToBeClickable(element));
+            new WebDriverWait(driver, defaultTimeout, sleepinMillis).until(
+                    ExpectedConditions.elementToBeClickable(element));
             new TouchAction<>(driver).tap(ElementOption.element(element)).release().perform();
         } catch (Exception e) {
             throw new Exception("[ERROR] Unable to Tap on " + element);

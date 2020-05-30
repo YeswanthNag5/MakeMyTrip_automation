@@ -78,10 +78,10 @@ public class DriverSetup {
      */
     @AfterTest(alwaysRun = true)
     public void oneTimeTearDown() throws Exception {
-        AndroidDriver<MobileElement> androidDriver = getcurrentAndroidThreadDriver();
-        androidDriver.removeApp(getSystemParameter("APP_PACKAGE"));
-        logMessage("Quitting Android Driver instance: " + androidDriver);
-        androidDriver.quit();
+//        AndroidDriver<MobileElement> androidDriver = getcurrentAndroidThreadDriver();
+//        androidDriver.removeApp(getSystemParameter("APP_PACKAGE"));
+//        logMessage("Quitting Android Driver instance: " + androidDriver);
+//        androidDriver.quit();
     }
 
     /**
