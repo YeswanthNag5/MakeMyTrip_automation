@@ -88,9 +88,10 @@ public class Helper {
      *
      * @param driver Test Driver Session
      * @param thisBy Selenium By Class which is returned by GetUIElements.getProperties
+     * @param i
      * @return Returns boolean true if element becomes invisible and returns false if element is still visible.
      */
-    public static Boolean waitTillInvisible(AppiumDriver<MobileElement> driver, By thisBy) {
+    public static Boolean waitTillInvisible(AppiumDriver<MobileElement> driver, By thisBy, int waitTime) {
         try {
             new WebDriverWait(driver, timeOut, timeOutInMillis).until(ExpectedConditions.invisibilityOfElementLocated(thisBy));
             return true;
