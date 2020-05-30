@@ -6,7 +6,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -156,9 +155,11 @@ public class DriverSetup {
 
         //capabilities.setCapability("app", testApp);
         capabilities.setCapability("appPackage", appPackage);
+        capabilities.setCapability("appWaitPackage", "com.google.android.gms");
         capabilities.setCapability("appActivity", appActivity);
         capabilities.setCapability("appWaitActivity", appWaitActivity);
         capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
+        capabilities.setCapability("autoAcceptAlerts", true);
 
         //capabilities.setCapability("fullReset", "true");
 
@@ -171,7 +172,7 @@ public class DriverSetup {
 
         driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        driver.rotate(ScreenOrientation.PORTRAIT);
+        driver.navigate().back();
         return driver;
     }
 }

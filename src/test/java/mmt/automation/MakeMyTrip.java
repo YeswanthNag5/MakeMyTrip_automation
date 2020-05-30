@@ -7,6 +7,7 @@ import mmt.automation.pages.Authentication;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 public class MakeMyTrip extends DriverSetup {
     AndroidDriver<MobileElement> testdriver;
@@ -25,6 +26,12 @@ public class MakeMyTrip extends DriverSetup {
     public void setTestdriver(String uname, String password) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         authentication = new Authentication(testdriver);
+        authentication.signIn(uname,password);
+    }
+
+    @Test
+    public void test(){
+        System.out.println("test");
     }
 
     /**
