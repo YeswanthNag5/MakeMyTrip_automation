@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="mmtSuite" parallel="false" thread-count="1">
+    <listeners>
+        <listener class-name="mmt.automation.common.TestListener"/>
+
+    </listeners>
+
+    <test verbose="2" name="mmt SearchProduct" preserve-order="true">
+        <parameters>
+            <parameter name="devicename" value="483af46d"/>
+            <parameter name="platformname" value="Android"/>
+            <parameter name="platformversion" value="7.0"/>
+
+            <parameter name="uname" value="warriorsHackathon123@gmail.com"/>
+            <parameter name="password" value="warriors@123"/>
+        </parameters>
+
+        <classes>
+            <class name="mmt.automation.MakeMyTrip"/>
+        </classes>
+    </test>
+
+</suite>
