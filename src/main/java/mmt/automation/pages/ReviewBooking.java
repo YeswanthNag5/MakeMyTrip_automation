@@ -34,6 +34,7 @@ public class ReviewBooking extends CommonUsage {
      * @throws Exception
      */
     public void guestDetails(String firstName, String lastName, String email, String phone) throws Exception {
+        Helper.waitTillVisible(driver,"title");
         AndroidGestures.tap(driver, "title");
         AndroidGestures.tap(driver, "Mr");
         AndroidGestures.setEditValue(driver, "firstName", firstName);
