@@ -144,6 +144,7 @@ public class DriverSetup {
         String platformVersion = ctx.getCurrentXmlTest().getParameter("platformversion");
         String testApp = getSystemParameter("ANDROID_TEST_APP");
         String appPackage = getSystemParameter("APP_PACKAGE");
+        String appWaitPackage = getSystemParameter("APP_WAIT_PACKAGE");
         String appActivity = getSystemParameter("APP_ACTIVITY");
         String appWaitActivity = getSystemParameter("APP_WAIT_ACTIVITY");
 
@@ -155,22 +156,23 @@ public class DriverSetup {
 
         //capabilities.setCapability("app", testApp);
         capabilities.setCapability("appPackage", appPackage);
-        capabilities.setCapability("appWaitPackage", "com.google.android.gms");
+        capabilities.setCapability("udid", deviceName);
+        capabilities.setCapability("appWaitPackage", appWaitPackage);
         capabilities.setCapability("appActivity", appActivity);
         capabilities.setCapability("appWaitActivity", appWaitActivity);
         capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
         capabilities.setCapability("autoAcceptAlerts", true);
-
-        //capabilities.setCapability("fullReset", "true");
+        capabilities.setCapability("headspin:controlLock", true);
 
         if (!platformVersion.startsWith("4.") && !platformVersion.startsWith("5.") && !platformVersion.startsWith("6.")) {
             capabilities.setCapability("automationName", "uiautomator2");
         }
 
         DriverSetup.logMessage("Initiating Driver session on " +
-                "http://localhost:4723/wd/hub with following capabilities: " + capabilities);
+                "https://dev-us-prv-0.headspin.io:7024/v0/b130e70565a147ffbc75b20ad0d88854/wd/hub with following capabilities: " + capabilities);
 
-        driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
+        //driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"),capabilities);
+        driver = new AndroidDriver<MobileElement>(new URL("https://dev-us-prv-0.headspin.io:7024/v0/b130e70565a147ffbc75b20ad0d88854/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.navigate().back();
         return driver;

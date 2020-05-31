@@ -1,17 +1,13 @@
 package mmt.automation.common;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.Augmenter;
-import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.TestListenerAdapter;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public class TestListener extends TestListenerAdapter {
 
@@ -20,7 +16,13 @@ public class TestListener extends TestListenerAdapter {
      *
      * @param result
      */
-    public void captureScreenShot(ITestResult result) {
+    public void captureScreenShot(ITestResult result) throws AWTException {
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        Rectangle rectangle = new Rectangle(0, 0, screenSize.width, screenSize.height);
+        Robot robot = new Robot();
+
         try {
             if (result != null) {
                 DriverSetup ti = (DriverSetup) result.getInstance();
@@ -33,31 +35,16 @@ public class TestListener extends TestListenerAdapter {
                     fileName = fileName.replaceAll("[^a-zA-Z0-9\\\\s\\\\.]", "");
                     result.setAttribute("screenshotLoc", fileName);
 
-                    WebDriver driverInstance = new Augmenter().augment(ti.driver);
-                    if (driverInstance != null) {
-                        File srcfile = null;
-                        try {
-                            srcfile = ((TakesScreenshot) driverInstance).getScreenshotAs(OutputType.FILE);
-                            DriverSetup.logger.info("Taking screenshot for the failure");
-                        } catch (UnreachableBrowserException ex) {
-                            ex.printStackTrace();
-                        }
 
-                        try {
-                            if (srcfile != null) {
-                                FileUtils.copyFile(srcfile, new File("file-screenshots" + File.separator + fileName));
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        Reporter.setCurrentTestResult(result);
-                        if (result.getThrowable() != null) {
-                            Reporter.log(result.getThrowable().getMessage());
-                        }
-                        Reporter.log("<a href=" + fileName + ">Click to open failure screenshot</a>");
-                    } else {
-                        DriverSetup.logMessage("Driver not exist. Screenshot cannot be taken !!");
+                    try {
+                        BufferedImage screenshotImage = robot.createScreenCapture(rectangle);
+                        File screenshotFile = new File("file-screenshots" + File.separator + fileName);
+                        ImageIO.write(screenshotImage, "png", screenshotFile);
+                    } catch (Exception e) {
+                        DriverSetup.logMessage(e.getMessage());
                     }
+
+                    Reporter.log("<a href=" + fileName + ">Click to open failure screenshot</a>");
                 } else {
                     DriverSetup.logMessage("Driver not exist. Screenshot cannot be taken !!");
                 }
@@ -76,7 +63,11 @@ public class TestListener extends TestListenerAdapter {
      */
     @Override
     public void onTestFailure(ITestResult result) {
-        captureScreenShot(result);
+        try {
+            captureScreenShot(result);
+        }catch (AWTException e) {
+            DriverSetup.logMessage("Unable to capture screenshot due to exception: " + e);
+        }
     }
 
     /**
@@ -87,7 +78,11 @@ public class TestListener extends TestListenerAdapter {
     @Override
     public void onConfigurationFailure(ITestResult result) {
         System.out.println("In Configuration failure");
-        captureScreenShot(result);
+        try {
+            captureScreenShot(result);
+        }catch (AWTException e) {
+            DriverSetup.logMessage("Unable to capture screenshot due to exception: " + e);
+        }
     }
 
     /**
@@ -96,6 +91,10 @@ public class TestListener extends TestListenerAdapter {
     @Override
     public void onConfigurationSkip(ITestResult result) {
         System.out.println("In Configuration failure");
-        captureScreenShot(result);
+        try {
+            captureScreenShot(result);
+        }catch (AWTException e) {
+            DriverSetup.logMessage("Unable to capture screenshot due to exception: " + e);
+        }
     }
 }

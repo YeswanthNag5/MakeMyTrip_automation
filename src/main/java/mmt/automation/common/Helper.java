@@ -2,13 +2,14 @@ package mmt.automation.common;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -163,14 +164,21 @@ public class Helper {
      * @throws Exception
      */
     public static void takeScreenshot(boolean flag, AppiumDriver driver, String foldename) throws Exception {
+        File Folderpath = new File("file-screenshots" + File.separator + foldename);
+        Folderpath.mkdirs();
+        String fileName = DriverSetup.methodname + "-" + Helper.getDate() + ".png";
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        Rectangle rectangle = new Rectangle(0, 0, screenSize.width, screenSize.height);
+        Robot robot = new Robot();
+
+
         if (flag == true) {
             try {
-                File Folderpath = new File("file-screenshots" + File.separator + foldename);
-                Folderpath.mkdirs();
-                String fileName = DriverSetup.methodname + "-" + Helper.getDate() + ".png";
-                //    WebDriver driverInstance = new Augmenter().augment(driver);
-                File srcfile = driver.getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(srcfile, new File(Folderpath + File.separator + fileName));
+                BufferedImage screenshotImage = robot.createScreenCapture(rectangle);
+                File screenshotFile = new File(Folderpath + File.separator + fileName);
+                ImageIO.write(screenshotImage, "jpg", screenshotFile);
             } catch (Exception e) {
                 DriverSetup.logMessage(e.getMessage());
             }

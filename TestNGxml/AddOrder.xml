@@ -7,9 +7,9 @@
 
     <test verbose="2" name="mmt SearchProduct" preserve-order="true">
         <parameters>
-            <parameter name="devicename" value="483af46d"/>
+            <parameter name="devicename" value="5e72914b"/>
             <parameter name="platformname" value="Android"/>
-            <parameter name="platformversion" value="7.0"/>
+            <parameter name="platformversion" value="8.0.0"/>
             <parameter name="uname" value="warriorsHackathon127@gmail.com"/>
             <parameter name="password" value="warriors@123"/>
             <parameter name="location" value="Bengaluru"/>
