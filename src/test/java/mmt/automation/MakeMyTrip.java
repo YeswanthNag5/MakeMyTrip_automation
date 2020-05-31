@@ -52,7 +52,7 @@ public class MakeMyTrip extends DriverSetup {
     }
 
     @Test(priority = 2)
-    @Parameters({"uname", "guestFirstName", "guestLastName", "phone", "adultCount", "childCount", "location"})
+    @Parameters({"uname", "guestFirstName", "guestLastName", "phone"})
     public void reviewBooking(String uname, String guestFirstName,
                               String guestLastName, String phone) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
