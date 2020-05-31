@@ -36,16 +36,16 @@ public class MakeMyTrip extends DriverSetup {
     }
 
     @Test(priority = 0)
-    @Parameters({"adultCount", "childCount"})
-    public void test(int adultCount, int childCount) throws Exception {
+    @Parameters({"location", "adultCount", "childCount"})
+    public void searchHotel(String location, int adultCount, int childCount) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         searchRoom = new SearchRoom(testdriver);
-        searchRoom.searchHotel(adultCount, childCount);
-        logMessage("Searched hotel for"+adultCount+"adults and"+childCount+"children");
+        searchRoom.searchHotel(location, adultCount, childCount);
+        logMessage("Searched hotel for" + adultCount + "adults and" + childCount + "children");
     }
 
     @Test(priority = 1)
-    public void test1() throws Exception {
+    public void bookHotel() throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         orderRoom = new OrderRoom(testdriver);
         orderRoom.sortAndFilter();
@@ -53,14 +53,15 @@ public class MakeMyTrip extends DriverSetup {
     }
 
     @Test(priority = 2)
-    @Parameters({"adultCount", "childCount"})
-    public void test2(int adultCount,int childCount) throws Exception {
+    @Parameters({"uname", "guestFirstName", "guestLastName", "phone", "adultCount", "childCount"})
+    public void reviewBooking(String uname, String guestFirstName,
+                              String guestLastName, String phone, int adultCount, int childCount) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         reviewBooking = new ReviewBooking(testdriver);
-        reviewBooking.guestDetails();
+        reviewBooking.guestDetails(guestFirstName, guestLastName, uname, phone);
         reviewBooking.specialRequest();
         reviewBooking.uncheckMMTfoundationDonation();
-        reviewBooking.verifySelectedDetails(adultCount,childCount);
+        reviewBooking.verifySelectedDetails(adultCount, childCount);
         logMessage("Compared details in the payment with the previously selected data");
     }
 

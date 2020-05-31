@@ -6,7 +6,7 @@ import mmt.automation.common.AndroidGestures;
 import mmt.automation.common.DriverSetup;
 import mmt.automation.common.Helper;
 
-public class Authentication {
+public class Authentication extends CommonUsage{
 
     private AndroidDriver driver;
 

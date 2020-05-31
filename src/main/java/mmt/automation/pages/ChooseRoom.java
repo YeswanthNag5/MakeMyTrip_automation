@@ -4,7 +4,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import mmt.automation.common.AndroidGestures;
 
-public class ChooseRoom {
+public class ChooseRoom extends CommonUsage {
 
     private AndroidDriver driver;
 
@@ -17,10 +17,8 @@ public class ChooseRoom {
         this.driver = driver;
     }
 
-    public void orderRoom() throws Exception
-    {
-        AndroidGestures.tap(driver,"sortAndFilter");
-
+    public void orderRoom() throws Exception {
+        AndroidGestures.tap(driver, "sortAndFilter");
     }
 
 }

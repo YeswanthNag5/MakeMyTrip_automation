@@ -14,7 +14,6 @@ import mmt.automation.common.Constants.swipeDirection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -47,7 +46,7 @@ public class AndroidGestures {
         }
 
         try {
-            while (!(isElementVisible(driver,locator)) && i < limit) {
+            while (!(isElementVisible(driver, locator)) && i < limit) {
                 windowSwipe(driver, thisDirection);
                 i++;
             }
@@ -67,7 +66,7 @@ public class AndroidGestures {
      * @throws Exception
      */
     public static void scrollFindToTap(AppiumDriver<MobileElement> driver, String locator, String value) throws
-                                                                                                         Exception {
+            Exception {
         try {
             scrollIntoView(driver, locator, value, 10, swipeDirection.UP);
             if (value != null && value != "") {
@@ -130,12 +129,12 @@ public class AndroidGestures {
                                     int percentageOfSlide) throws Exception {
         driver.context("NATIVE_APP");
         MobileElement seek_bar = driver.findElement(GetUIElements.getProperties(locator));
-        int start=seek_bar.getLocation().getX();
-        int end=seek_bar.getSize().getWidth();
-        int y=seek_bar.getLocation().getY();
-        TouchAction action=new TouchAction(driver);
-        int moveTo=(int)(end*(0.075));
-        action.press(PointOption.point(start,y)).moveTo(PointOption.point(moveTo,y)).release().perform();
+        int start = seek_bar.getLocation().getX();
+        int end = seek_bar.getSize().getWidth();
+        int y = seek_bar.getLocation().getY();
+        TouchAction action = new TouchAction(driver);
+        int moveTo = (int) (end * (0.075));
+        action.press(PointOption.point(start, y)).moveTo(PointOption.point(moveTo, y)).release().perform();
     }
 
 
@@ -160,6 +159,7 @@ public class AndroidGestures {
         }
 
     }
+
     /**
      * check element is visible in the screen
      *
@@ -185,8 +185,6 @@ public class AndroidGestures {
     }
 
 
-
-
     /**
      * Taps on the WebElement
      *
@@ -205,11 +203,10 @@ public class AndroidGestures {
     }
 
 
-    public static void horizontalScroll(AppiumDriver<MobileElement> driver)
-    {
+    public static void horizontalScroll(AppiumDriver<MobileElement> driver, String cityName) {
         MobileElement element = driver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().resourceId(\"com.makemytrip:id/rv_popular_cities\")).setAsHorizontalList().scrollIntoView("
-                        + "new UiSelector().textContains(\"Bengaluru\"))"));
+                        + "new UiSelector().textContains(\""+cityName+"\"))"));
     }
 
     /**
@@ -280,7 +277,7 @@ public class AndroidGestures {
      * @param thisSwipe
      * @throws Exception
      */
-    public static void elementSwipe(AppiumDriver<MobileElement> driver, String locator, swipeDirection  thisSwipe) throws Exception {
+    public static void elementSwipe(AppiumDriver<MobileElement> driver, String locator, swipeDirection thisSwipe) throws Exception {
         MobileElement thisEle = driver.findElement(GetUIElements.getProperties(locator));
         Dimension size = thisEle.getSize();
         int leftX = (int) (size.width * 0.10);

@@ -57,7 +57,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>integration-test</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
@@ -66,7 +66,7 @@
                                 <suiteXmlFile>./TestNGxml/AddOrder.xml</suiteXmlFile>
                             </suiteXmlFiles>
                             <parallel>false</parallel>
-                            <threadCount>25</threadCount>
+                            <threadCount>1</threadCount>
                             <skip>false</skip>
                             <testFailureIgnore>true</testFailureIgnore>
                         </configuration>

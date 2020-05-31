@@ -1,12 +1,11 @@
 package mmt.automation.pages;
 
-import mmt.automation.common.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import mmt.automation.common.AndroidGestures;
-import org.openqa.selenium.By;
+import mmt.automation.common.DriverSetup;
 
-public class SearchRoom {
+public class SearchRoom extends CommonUsage {
     private AndroidDriver driver;
 
     /**
@@ -25,36 +24,21 @@ public class SearchRoom {
      * @param childcount
      * @throws Exception
      */
-    public void searchHotel(int adultcount,int childcount)throws Exception {
+    public void searchHotel(String location, int adultcount, int childcount) throws Exception {
         AndroidGestures.tap(driver, "Hotel");
-        AndroidGestures.tap(driver,"city");
-        AndroidGestures.scrollIntoView(driver,"cityName","",10, Constants.swipeDirection.LEFT);
-        AndroidGestures.horizontalScroll(driver);
-        AndroidGestures.tap(driver,"cityName");
+        AndroidGestures.tap(driver, "city");
+        AndroidGestures.horizontalScroll(driver, location);
+        AndroidGestures.tap(driver, "cityName");
         DriverSetup.logMessage("Selected city for booking hotel");
-        AndroidGestures.tap(driver,"adultCountHeader");
-        AddGuest("adultCount","adultAdd",adultcount);
-        AddGuest("childCount","childAdd",childcount);
-        AndroidGestures.tap(driver,"done");
-        AndroidGestures.tap(driver,"tripType");
-        AndroidGestures.tap(driver,"search");
+        AndroidGestures.tap(driver, "adultCountHeader");
+        AddGuest(driver,"adultCount", "adultAdd", adultcount);
+        AddGuest(driver,"childCount", "childAdd", childcount);
+        AndroidGestures.tap(driver, "addAnotherRoom");
+        AddGuest(driver,"adultCount", "adultAdd", adultcount);
+        AddGuest(driver,"childCount", "childAdd", childcount);
+        AndroidGestures.tap(driver, "done");
+        AndroidGestures.tap(driver, "tripType");
+        AndroidGestures.tap(driver, "search");
         DriverSetup.logMessage("search is successful");
-    }
-
-    /**
-     * Adding guests for the hotel search
-     *
-     * @param GuestCount
-     * @param GuestAdd
-     * @throws Exception
-     */
-
-    public void AddGuest(String GuestCount,String GuestAdd,int count) throws Exception
-    {
-        while(!(Integer.parseInt(AndroidGestures.getText(driver,GuestCount))== count))
-        {
-            AndroidGestures.tap(driver,GuestAdd);
-        }
-
     }
 }

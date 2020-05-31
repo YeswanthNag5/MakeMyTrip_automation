@@ -171,7 +171,7 @@ public class DriverSetup {
                 "http://localhost:4723/wd/hub with following capabilities: " + capabilities);
 
         driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), capabilities);
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.navigate().back();
         return driver;
     }

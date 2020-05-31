@@ -7,13 +7,18 @@
 
     <test verbose="2" name="mmt SearchProduct" preserve-order="true">
         <parameters>
-            <parameter name="devicename" value="259923bdd81c7ece"/>
+            <parameter name="devicename" value="483af46d"/>
             <parameter name="platformname" value="Android"/>
-            <parameter name="platformversion" value="8.1"/>
-            <parameter name="uname" value="warriorsHackathon124@gmail.com"/>
-            <parameter name="password" value="yeswanth@123"/>
+            <parameter name="platformversion" value="7.0"/>
+            <parameter name="uname" value="warriorsHackathon127@gmail.com"/>
+            <parameter name="password" value="warriors@123"/>
+            <parameter name="location" value="Bengaluru"/>
             <parameter name="adultCount" value="2"/>
             <parameter name="childCount" value="2"/>
+            <parameter name="guestTitle" value="Mr"/>
+            <parameter name="guestFirstName" value="Yesh"/>
+            <parameter name="guestLastName" value="Hack"/>
+            <parameter name="phone" value="1234567890"/>
         </parameters>
 
         <classes>

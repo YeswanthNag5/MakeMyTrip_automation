@@ -69,12 +69,12 @@ public class Helper {
     /**
      * waitTillVisible waits for the element to be visible until the time - used by wrapper method. ** Not to be used by tests**
      *
-     * @param driver    Test Driver Session
+     * @param driver  Test Driver Session
      * @param locator
      * @return Returns boolean true if element is visible and returns false if element is not being visible within the time passed.
      */
     public static Boolean waitTillVisible(AppiumDriver<MobileElement> driver, String locator) throws
-            Exception{
+            Exception {
         By thisBy = GetUIElements.getProperties(locator);
         try {
             new WebDriverWait(driver, timeOut, timeOutInMillis).until(ExpectedConditions.visibilityOfElementLocated(thisBy));
@@ -87,8 +87,8 @@ public class Helper {
     /**
      * waitTillInvisible waits for the element to be invisible within the time - used by wrapper method. ** Not to be used by tests**
      *
-     * @param driver Test Driver Session
-     * @param thisBy Selenium By Class which is returned by GetUIElements.getProperties
+     * @param driver   Test Driver Session
+     * @param thisBy   Selenium By Class which is returned by GetUIElements.getProperties
      * @param waitTime
      * @return Returns boolean true if element becomes invisible and returns false if element is still visible.
      */
