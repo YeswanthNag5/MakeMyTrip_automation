@@ -77,6 +77,7 @@ public class ReviewBooking extends CommonUsage {
     }
 
     public void verifySelectedDetails() throws Exception {
+        Helper.waitTillVisible(driver,"hotelName");
         hotelName = AndroidGestures.getText(driver, "hotelName");
         checkInDate = AndroidGestures.getText(driver, "reviewCheckInDate");
         checkOutDate = AndroidGestures.getText(driver, "reviewCheckOutDate");

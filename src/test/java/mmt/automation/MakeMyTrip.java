@@ -52,18 +52,24 @@ public class MakeMyTrip extends DriverSetup {
     }
 
     @Test(priority = 2)
-    @Parameters({"uname", "guestFirstName", "guestLastName", "phone", "adultCount", "childCount","location"})
+    @Parameters({"uname", "guestFirstName", "guestLastName", "phone", "adultCount", "childCount", "location"})
     public void reviewBooking(String uname, String guestFirstName,
-                              String guestLastName, String phone, int adultCount, int childCount,String location) throws Exception {
+                              String guestLastName, String phone) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         reviewBooking = new ReviewBooking(testdriver);
         reviewBooking.verifySelectedDetails();
         reviewBooking.guestDetails(guestFirstName, guestLastName, uname, phone);
         reviewBooking.specialRequest();
         reviewBooking.uncheckMMTfoundationDonation();
+
+    }
+
+    @Test(priority = 3)
+    @Parameters({"adultCount", "childCount", "location"})
+    public void paymentDetails(int adultCount, int childCount, String location) throws Exception {
         paymentDetails = new PaymentDetails(testdriver);
         logMessage("Compared details in the payment with the previously selected data");
-        paymentDetails.verifySelectedDetails(adultCount,childCount,location);
+        paymentDetails.verifySelectedDetails(adultCount, childCount, location);
     }
 
     /**
