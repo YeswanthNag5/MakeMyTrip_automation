@@ -19,6 +19,7 @@
             <parameter name="guestFirstName" value="Yesh"/>
             <parameter name="guestLastName" value="Hack"/>
             <parameter name="phone" value="1234567890"/>
+            <parameter name="Hotel5" value= "5"/>
         </parameters>
 
         <classes>

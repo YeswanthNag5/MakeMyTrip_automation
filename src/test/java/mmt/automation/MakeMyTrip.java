@@ -3,10 +3,7 @@ package mmt.automation;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import mmt.automation.common.DriverSetup;
-import mmt.automation.pages.Authentication;
-import mmt.automation.pages.OrderRoom;
-import mmt.automation.pages.ReviewBooking;
-import mmt.automation.pages.SearchRoom;
+import mmt.automation.pages.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -18,6 +15,7 @@ public class MakeMyTrip extends DriverSetup {
     SearchRoom searchRoom;
     OrderRoom orderRoom;
     ReviewBooking reviewBooking;
+    PaymentDetails paymentDetails;
 
 
     /**
@@ -45,24 +43,27 @@ public class MakeMyTrip extends DriverSetup {
     }
 
     @Test(priority = 1)
-    public void bookHotel() throws Exception {
+    @Parameters({"Hotel5"})
+    public void bookHotel(int hotelNumber) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         orderRoom = new OrderRoom(testdriver);
         orderRoom.sortAndFilter();
-        orderRoom.bookHotel();
+        orderRoom.bookHotel(hotelNumber);
     }
 
     @Test(priority = 2)
-    @Parameters({"uname", "guestFirstName", "guestLastName", "phone", "adultCount", "childCount"})
+    @Parameters({"uname", "guestFirstName", "guestLastName", "phone", "adultCount", "childCount","location"})
     public void reviewBooking(String uname, String guestFirstName,
-                              String guestLastName, String phone, int adultCount, int childCount) throws Exception {
+                              String guestLastName, String phone, int adultCount, int childCount,String location) throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         reviewBooking = new ReviewBooking(testdriver);
+        reviewBooking.verifySelectedDetails();
         reviewBooking.guestDetails(guestFirstName, guestLastName, uname, phone);
         reviewBooking.specialRequest();
         reviewBooking.uncheckMMTfoundationDonation();
-        reviewBooking.verifySelectedDetails(adultCount, childCount);
+        paymentDetails = new PaymentDetails(testdriver);
         logMessage("Compared details in the payment with the previously selected data");
+        paymentDetails.verifySelectedDetails(adultCount,childCount,location);
     }
 
     /**

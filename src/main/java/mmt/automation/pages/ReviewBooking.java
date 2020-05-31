@@ -9,6 +9,11 @@ import org.testng.Assert;
 
 public class ReviewBooking extends CommonUsage {
     private AndroidDriver driver;
+  public String hotelName="";
+   public String totalRoomNo="";
+   public String totalGuest="";
+   public String checkInDate="";
+   public String checkOutDate ="";
 
     /**
      * Preset driver to the current instance.
@@ -19,6 +24,15 @@ public class ReviewBooking extends CommonUsage {
         this.driver = driver;
     }
 
+    /**
+     * Select hotel for the adult and child counts and trip type
+     *
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param phone
+     * @throws Exception
+     */
     public void guestDetails(String firstName, String lastName, String email, String phone) throws Exception {
         AndroidGestures.tap(driver, "title");
         AndroidGestures.tap(driver, "Mr");
@@ -61,9 +75,14 @@ public class ReviewBooking extends CommonUsage {
 
     }
 
-    public void verifySelectedDetails(int adultCount, int childCount) throws Exception {
-        AndroidGestures.tap(driver, "detailsChevron");
-        Assert.assertEquals("verify total number of guests", AndroidGestures.getText(driver, "totalGuest"), (adultCount + childCount) + " Guests");
+    public void verifySelectedDetails() throws Exception {
+        hotelName = AndroidGestures.getText(driver, "hotelName");
+        checkInDate = AndroidGestures.getText(driver, "reviewCheckInDate");
+        checkOutDate = AndroidGestures.getText(driver, "reviewCheckOutDate");
+        totalGuest = AndroidGestures.getText(driver, "guestNo");
+        totalRoomNo = AndroidGestures.getText(driver, "roomNo");
+        System.out.println("HOtel"+hotelName+"checkin"+checkInDate+"checkoutDate"+checkOutDate+"totalgues"+totalGuest+"totalRoom"+totalRoomNo);
+
 
     }
 

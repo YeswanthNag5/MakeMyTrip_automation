@@ -12,6 +12,7 @@ import java.util.List;
 public class OrderRoom extends CommonUsage{
 
     private AndroidDriver driver;
+    public  String SelectedHotelName="";
 
     /**
      * Preset driver to the current instance.
@@ -22,6 +23,11 @@ public class OrderRoom extends CommonUsage{
         this.driver = driver;
     }
 
+    /**
+     * Select sort and filter
+     *
+     * @throws Exception
+     */
     public void sortAndFilter() throws Exception {
         AndroidGestures.tap(driver, "sortAndFilter");
         Helper.waitTillVisible(driver, "seekBar");
@@ -31,8 +37,15 @@ public class OrderRoom extends CommonUsage{
         AndroidGestures.tap(driver, "applyFilter");
     }
 
-    public void bookHotel() throws Exception {
-        searchRoom("searchResultHotelName");
+    /**
+     * book hotel
+     *
+     * @throws Exception
+     * @param hotelNumber
+     */
+    public void bookHotel(int hotelNumber) throws Exception {
+        searchRoom(hotelNumber,"searchResultHotelName");
+        SelectedHotelName= AndroidGestures.getText(driver,"hotelName");
         Helper.waitTillVisible(driver, "bookNow");
         if (AndroidGestures.getText(driver, "bookNow").equalsIgnoreCase("SELECT ROOM")) {
             AndroidGestures.tap(driver, "bookNow");
@@ -54,7 +67,13 @@ public class OrderRoom extends CommonUsage{
 
     }
 
-    public void searchRoom(String locator) throws Exception {
+    /**
+     * Select hotel for the adult and child counts and trip type
+     *
+     * @param locator
+     * @throws Exception
+     */
+    public void searchRoom(int hotelnumber,String locator) throws Exception {
         List<MobileElement> elements = null;
         try {
             elements = Helper.fetchElements(driver, locator);
@@ -62,7 +81,7 @@ public class OrderRoom extends CommonUsage{
             e.printStackTrace();
         }
         List<String> uniqueNumber = new ArrayList<>();
-        if (elements.size() < 5) {
+        if (elements.size() < hotelnumber) {
             for (int i = 0; i <= 10; i++) {
                 List<MobileElement> elements1 = Helper.fetchElements(driver, locator);
 
@@ -70,15 +89,15 @@ public class OrderRoom extends CommonUsage{
                     if (!uniqueNumber.contains(ele.getText())) {
                         uniqueNumber.add(ele.getText());
                     }
-                    if (uniqueNumber.size() == 4) {
+                    if (uniqueNumber.size() == hotelnumber) {
                         ele.click();
                         break;
                     }
-                    if (uniqueNumber.size() < 5) {
+                    if (uniqueNumber.size() < hotelnumber) {
                         AndroidGestures.windowSwipe(driver, Constants.swipeDirection.UP);
                     }
                 }
-                if (uniqueNumber.size() == 4) {
+                if (uniqueNumber.size() == hotelnumber) {
                     break;
                 }
             }
