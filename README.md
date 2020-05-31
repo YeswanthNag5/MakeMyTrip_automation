@@ -32,5 +32,5 @@ To Execute the Project
 * Yeswanth Nag Lingala
 * Sivaranjini M 
 
-The list of [contributors](https://github.com/your/project/contributors) and timespan, who participated in this project can be verified.
+The list of [contributors](https://github.com/YeswanthNag5/MakeMyTrip_automation/commits/master) and timespan, who participated in this project can be verified.
 
