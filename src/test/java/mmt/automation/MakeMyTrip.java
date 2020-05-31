@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import mmt.automation.common.DriverSetup;
 import mmt.automation.pages.Authentication;
 import mmt.automation.pages.OrderRoom;
+import mmt.automation.pages.ReviewBooking;
 import mmt.automation.pages.SearchRoom;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +17,7 @@ public class MakeMyTrip extends DriverSetup {
     Authentication authentication;
     SearchRoom searchRoom;
     OrderRoom orderRoom;
+    ReviewBooking reviewBooking;
 
 
     /**
@@ -42,14 +44,24 @@ public class MakeMyTrip extends DriverSetup {
         logMessage("Searched hotel for"+adultCount+"adults and"+childCount+"children");
     }
 
-
     @Test(priority = 1)
     public void test1() throws Exception {
         this.testdriver = getcurrentAndroidThreadDriver();
         orderRoom = new OrderRoom(testdriver);
         orderRoom.sortAndFilter();
-        orderRoom.chooseHotel();
+        orderRoom.bookHotel();
+    }
 
+    @Test(priority = 2)
+    @Parameters({"adultCount", "childCount"})
+    public void test2(int adultCount,int childCount) throws Exception {
+        this.testdriver = getcurrentAndroidThreadDriver();
+        reviewBooking = new ReviewBooking(testdriver);
+        reviewBooking.guestDetails();
+        reviewBooking.specialRequest();
+        reviewBooking.uncheckMMTfoundationDonation();
+        reviewBooking.verifySelectedDetails(adultCount,childCount);
+        logMessage("Compared details in the payment with the previously selected data");
     }
 
     /**

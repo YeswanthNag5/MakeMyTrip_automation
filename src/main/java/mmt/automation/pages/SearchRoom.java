@@ -28,6 +28,7 @@ public class SearchRoom {
     public void searchHotel(int adultcount,int childcount)throws Exception {
         AndroidGestures.tap(driver, "Hotel");
         AndroidGestures.tap(driver,"city");
+        AndroidGestures.scrollIntoView(driver,"cityName","",10, Constants.swipeDirection.LEFT);
         AndroidGestures.horizontalScroll(driver);
         AndroidGestures.tap(driver,"cityName");
         DriverSetup.logMessage("Selected city for booking hotel");

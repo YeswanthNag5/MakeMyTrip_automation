@@ -14,6 +14,7 @@ import mmt.automation.common.Constants.swipeDirection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -46,7 +47,7 @@ public class AndroidGestures {
         }
 
         try {
-            while (!Helper.waitTillVisible(driver, thisBy, 1) && i < limit) {
+            while (!(isElementVisible(driver,locator)) && i < limit) {
                 windowSwipe(driver, thisDirection);
                 i++;
             }
@@ -118,6 +119,25 @@ public class AndroidGestures {
         }
     }
 
+    /**
+     * Move the seekBar as per the percentageOfSlide
+     *
+     * @param driver
+     * @param locator
+     * @throws Exception
+     */
+    public static void seekBarSwipe(AppiumDriver<MobileElement> driver, String locator,
+                                    int percentageOfSlide) throws Exception {
+        driver.context("NATIVE_APP");
+        MobileElement seek_bar = driver.findElement(GetUIElements.getProperties(locator));
+        int start=seek_bar.getLocation().getX();
+        int end=seek_bar.getSize().getWidth();
+        int y=seek_bar.getLocation().getY();
+        TouchAction action=new TouchAction(driver);
+        int moveTo=(int)(end*(0.075));
+        action.press(PointOption.point(start,y)).moveTo(PointOption.point(moveTo,y)).release().perform();
+    }
+
 
     /**
      * check element is visible in the screen
@@ -140,6 +160,31 @@ public class AndroidGestures {
         }
 
     }
+    /**
+     * check element is visible in the screen
+     *
+     * @param driver
+     * @param locator
+     * @throws Exception
+     */
+    public static boolean isChecked(AppiumDriver<MobileElement> driver, String locator) throws Exception {
+        By thisBy = null;
+        String isChecked = "";
+
+        try {
+            thisBy = GetUIElements.getProperties(locator);
+            isChecked = driver.findElement(thisBy).getAttribute("Checked");
+            if (Boolean.parseBoolean(isChecked))
+                return true;
+        } catch (RuntimeException re) {
+            re.printStackTrace();
+
+        }
+
+        return false;
+    }
+
+
 
 
     /**
@@ -166,6 +211,7 @@ public class AndroidGestures {
                 "new UiScrollable(new UiSelector().resourceId(\"com.makemytrip:id/rv_popular_cities\")).setAsHorizontalList().scrollIntoView("
                         + "new UiSelector().textContains(\"Bengaluru\"))"));
     }
+
     /**
      * Taps on the WebElement based on locator and any attributes value.
      *
@@ -234,7 +280,7 @@ public class AndroidGestures {
      * @param thisSwipe
      * @throws Exception
      */
-    public static void elementSwipe(AppiumDriver<MobileElement> driver, String locator, swipeDirection thisSwipe) throws Exception {
+    public static void elementSwipe(AppiumDriver<MobileElement> driver, String locator, swipeDirection  thisSwipe) throws Exception {
         MobileElement thisEle = driver.findElement(GetUIElements.getProperties(locator));
         Dimension size = thisEle.getSize();
         int leftX = (int) (size.width * 0.10);

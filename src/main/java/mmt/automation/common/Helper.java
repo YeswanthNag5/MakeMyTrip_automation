@@ -70,11 +70,12 @@ public class Helper {
      * waitTillVisible waits for the element to be visible until the time - used by wrapper method. ** Not to be used by tests**
      *
      * @param driver    Test Driver Session
-     * @param thisBy    Selenium By Class which is returned by GetUIElements.getProperties
-     * @param timevalue Time to wait for the element to be visible
+     * @param locator
      * @return Returns boolean true if element is visible and returns false if element is not being visible within the time passed.
      */
-    public static Boolean waitTillVisible(AppiumDriver<MobileElement> driver, By thisBy, long timevalue) {
+    public static Boolean waitTillVisible(AppiumDriver<MobileElement> driver, String locator) throws
+            Exception{
+        By thisBy = GetUIElements.getProperties(locator);
         try {
             new WebDriverWait(driver, timeOut, timeOutInMillis).until(ExpectedConditions.visibilityOfElementLocated(thisBy));
             return true;
