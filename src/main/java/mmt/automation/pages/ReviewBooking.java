@@ -81,8 +81,6 @@ public class ReviewBooking extends CommonUsage {
         checkOutDate = AndroidGestures.getText(driver, "reviewCheckOutDate");
         totalGuest = AndroidGestures.getText(driver, "guestNo");
         totalRoomNo = AndroidGestures.getText(driver, "roomNo");
-        System.out.println("HOtel"+hotelName+"checkin"+checkInDate+"checkoutDate"+checkOutDate+"totalgues"+totalGuest+"totalRoom"+totalRoomNo);
-
 
     }
 
